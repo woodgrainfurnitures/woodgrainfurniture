@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Product Manager — WoodGrains</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+  :root{--ink:#211d1a;--sub:#6b6259;--line:#e7e0d6;--bg:#faf7f2;--card:#fff;--accent:#8a5a3c;--accent-d:#6e4630;--danger:#b5423a}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink)}
+  header{padding:28px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  header h1{font-family:'DM Serif Display',serif;font-weight:400;font-size:24px;margin:0}
+  header a{color:var(--sub);text-decoration:none;font-size:14px}
+  header .header-links{display:flex;align-items:center;gap:18px}
+  #logout-btn{background:none;border:none;color:var(--sub);font-size:14px;cursor:pointer;font-family:inherit;text-decoration:underline}
+  main{max-width:1000px;margin:0 auto;padding:28px 24px 80px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:28px}
+  .panel h2{margin:0 0 18px;font-size:16px;font-weight:600}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--sub)}
+  input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:14px;background:#fff}
+  textarea{resize:vertical;min-height:70px}
+  .full{grid-column:1/-1}
+  .row{display:flex;gap:10px;align-items:center}
+  button{cursor:pointer;border:none;border-radius:8px;font-family:inherit;font-weight:600;font-size:14px}
+  .btn-primary{background:var(--accent);color:#fff;padding:11px 22px}
+  .btn-primary:hover{background:var(--accent-d)}
+  .btn-primary:disabled{opacity:0.6;cursor:not-allowed}
+  .btn-outline{background:none;border:1px solid var(--line);color:var(--ink);padding:9px 16px}
+  .btn-danger{background:none;color:var(--danger);padding:6px 10px;font-size:13px}
+  .btn-danger:hover{text-decoration:underline}
+  .products-list{display:grid;gap:12px}
+  .product-row{display:grid;grid-template-columns:56px 1fr auto;gap:14px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:10px}
+  .product-row img{width:56px;height:56px;object-fit:cover;border-radius:8px;background:#eee}
+  .product-row .name{font-weight:600;font-size:14px}
+  .product-row .meta{font-size:12px;color:var(--sub);margin-top:2px}
+  .status{font-size:13px;padding:10px 14px;border-radius:8px;margin-bottom:16px;display:none}
+  .status.ok{display:block;background:#eaf4ea;color:#2f6d33}
+  .status.err{display:block;background:#fbeae8;color:var(--danger)}
+  #login-screen{max-width:360px;margin:120px auto;text-align:center;padding:0 20px}
+  #login-screen input{margin:8px 0}
+  #login-screen .btn-primary{margin-top:8px}
+  #app{display:none}
+  .empty{color:var(--sub);font-size:14px;padding:20px;text-align:center}
+  .field-hint{font-size:12px;color:var(--sub);margin-top:6px}
+</style>
+</head>
+<body>
+
+  <div id="login-screen">
+    <h1 style="font-family:'DM Serif Display',serif;font-weight:400">Product Manager</h1>
+    <p style="color:var(--sub);font-size:14px">Sign in with your admin account to continue.</p>
+    <input type="email" id="email-input" placeholder="Email" autocomplete="username">
+    <input type="password" id="pw-input" placeholder="Password" autocomplete="current-password">
+    <button class="btn-primary" onclick="tryLogin()" style="width:100%">Sign in</button>
+    <p id="pw-error" style="color:var(--danger);font-size:13px;display:none"></p>
+  </div>
+
+  <div id="app">
+    <header>
+      <h1>Product Manager — WoodGrains</h1>
+      <div class="header-links">
+        <a href="index.html">&larr; Back to site</a>
+        <button id="logout-btn" onclick="logout()">Sign out</button>
+      </div>
+    </header>
+    <main>
+      <div id="status" class="status"></div>
+
+      <section class="panel">
+        <h2 id="form-title">Add a product</h2>
+        <input type="hidden" id="edit-id">
+        <div class="grid">
+          <div>
+            <label>Name</label>
+            <input type="text" id="f-name" placeholder="e.g. Coffee Table" maxlength="150">
+          </div>
+          <div>
+            <label>Price (₹)</label>
+            <input type="number" id="f-price" placeholder="8999" min="0" step="1">
+          </div>
+          <div class="full">
+            <label>Category</label>
+            <select id="f-category">
+              <option value="living-room">Living Room</option>
+              <option value="bedroom">Bedroom</option>
+              <option value="dining-room">Dining Room</option>
+              <option value="office">Office</option>
+              <option value="storage">Storage</option>
+            </select>
+          </div>
+          <div class="full">
+            <label>Description (optional)</label>
+            <textarea id="f-description" placeholder="A short line about this piece" maxlength="600"></textarea>
+          </div>
+          <div class="full">
+            <label>Product information (optional)</label>
+            <textarea id="f-product-info" placeholder="Dimensions, materials used, care instructions, assembly notes, warranty, etc." maxlength="2000"></textarea>
+            <p class="field-hint">Shown on the product page as extra detail, separate from the short description above.</p>
+          </div>
+          <div class="full">
+            <label>Main photo</label>
+            <input type="file" id="f-image" accept="image/*">
+            <div id="current-image" style="margin-top:8px;font-size:12px;color:var(--sub)"></div>
+          </div>
+          <div>
+            <label>Additional photo — view 2 (optional)</label>
+            <input type="file" id="f-image-2" accept="image/*">
+          </div>
+          <div>
+            <label>Additional photo — view 3 (optional)</label>
+            <input type="file" id="f-image-3" accept="image/*">
+          </div>
+          <div>
+            <label>Additional photo — view 4 (optional)</label>
+            <input type="file" id="f-image-4" accept="image/*">
+          </div>
+        </div>
+        <div class="row" style="margin-top:18px">
+          <button class="btn-primary" onclick="saveProduct()" id="save-btn">Save product</button>
+          <button class="btn-outline" onclick="resetForm()" id="cancel-btn" style="display:none">Cancel edit</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Your products</h2>
+        <div class="products-list" id="products-list">
+          <div class="empty">Loading…</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+<script src="js/supabase-config.js"></script>
+<script>
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  let editingId = null;
+  let currentProducts = [];
+  const MAX_IMAGE_BYTES = 5 * 1024 * 1024; // 5MB
+  const ALLOWED_CATEGORIES = ['living-room', 'bedroom', 'dining-room', 'office', 'storage'];
+
+  function escapeHtml(str) {
+    return String(str ?? '').replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  // ---------- Auth ----------
+  async function tryLogin() {
+    const email = document.getElementById('email-input').value.trim();
+    const password = document.getElementById('pw-input').value;
+    const errEl = document.getElementById('pw-error');
+    errEl.style.display = 'none';
+    if (!email || !password) {
+      errEl.textContent = 'Enter your email and password.';
+      errEl.style.display = 'block';
+      return;
+    }
+    const { error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) {
+      errEl.textContent = 'Sign-in failed: ' + error.message;
+      errEl.style.display = 'block';
+      return;
+    }
+    showApp();
+  }
+  document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+  document.getElementById('email-input').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+
+  async function logout() {
+    await sb.auth.signOut();
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'block';
+    document.getElementById('pw-input').value = '';
+  }
+
+  function showApp() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadList();
+  }
+
+  async function initAuth() {
+    const { data } = await sb.auth.getSession();
+    if (data?.session) showApp();
+    else document.getElementById('login-screen').style.display = 'block';
+  }
+  initAuth();
+
+  sb.auth.onAuthStateChange((event) => {
+    if (event === 'SIGNED_OUT') {
+      document.getElementById('app').style.display = 'none';
+      document.getElementById('login-screen').style.display = 'block';
+    }
+  });
+
+  // ---------- UI helpers ----------
+  function showStatus(msg, ok = true) {
+    const el = document.getElementById('status');
+    el.textContent = msg;
+    el.className = 'status ' + (ok ? 'ok' : 'err');
+    setTimeout(() => { el.className = 'status'; }, 4000);
+  }
+
+  async function loadList() {
+    const list = document.getElementById('products-list');
+    const { data, error } = await sb.from('products').select('*').order('created_at', { ascending: false });
+    if (error) { list.innerHTML = `<div class="empty">Couldn't load products: ${escapeHtml(error.message)}</div>`; return; }
+    currentProducts = data || [];
+    if (!currentProducts.length) { list.innerHTML = '<div class="empty">No products yet — add your first one above.</div>'; return; }
+    list.innerHTML = currentProducts.map(p => `
+      <div class="product-row">
+        <img src="${escapeHtml(p.image_url || '')}" alt="${escapeHtml(p.name)}" onerror="this.style.opacity=0">
+        <div>
+          <div class="name">${escapeHtml(p.name)}</div>
+          <div class="meta">₹${Number(p.price).toLocaleString('en-IN')} · ${escapeHtml(p.category)}</div>
+        </div>
+        <div class="row">
+          <button class="btn-outline" data-edit-id="${p.id}">Edit</button>
+          <button class="btn-danger" data-delete-id="${p.id}">Delete</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Event delegation instead of inline onclick with serialized data —
+  // avoids building HTML attributes out of admin-entered text.
+  document.getElementById('products-list').addEventListener('click', (e) => {
+    const editBtn = e.target.closest('[data-edit-id]');
+    if (editBtn) {
+      const p = currentProducts.find(x => String(x.id) === editBtn.dataset.editId);
+      if (p) editProduct(p);
+      return;
+    }
+    const delBtn = e.target.closest('[data-delete-id]');
+    if (delBtn) deleteProduct(delBtn.dataset.deleteId);
+  });
+
+  function editProduct(p) {
+    editingId = p.id;
+    document.getElementById('form-title').textContent = 'Edit product';
+    document.getElementById('f-name').value = p.name || '';
+    document.getElementById('f-price').value = p.price || '';
+    document.getElementById('f-category').value = p.category || 'living-room';
+    document.getElementById('f-description').value = p.description || '';
+    document.getElementById('f-product-info').value = p.product_info || '';
+    document.getElementById('current-image').textContent = p.image_url ? 'Current photos are set — choose new files only for the ones you want to replace.' : '';
+    document.getElementById('cancel-btn').style.display = 'inline-block';
+    document.getElementById('save-btn').textContent = 'Save changes';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function resetForm() {
+    editingId = null;
+    document.getElementById('form-title').textContent = 'Add a product';
+    document.getElementById('f-name').value = '';
+    document.getElementById('f-price').value = '';
+    document.getElementById('f-category').value = 'living-room';
+    document.getElementById('f-description').value = '';
+    document.getElementById('f-product-info').value = '';
+    document.getElementById('f-image').value = '';
+    document.getElementById('f-image-2').value = '';
+    document.getElementById('f-image-3').value = '';
+    document.getElementById('f-image-4').value = '';
+    document.getElementById('current-image').textContent = '';
+    document.getElementById('cancel-btn').style.display = 'none';
+    document.getElementById('save-btn').textContent = 'Save product';
+  }
+
+  function validateFile(file) {
+    if (!file) return null;
+    if (!file.type.startsWith('image/')) throw new Error(`"${file.name}" isn't an image file.`);
+    if (file.size > MAX_IMAGE_BYTES) throw new Error(`"${file.name}" is larger than 5MB.`);
+    return file;
+  }
+
+  async function uploadImage(file) {
+    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+    const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const { error } = await sb.storage.from('product-images').upload(path, file);
+    if (error) throw error;
+    const { data } = sb.storage.from('product-images').getPublicUrl(path);
+    return data.publicUrl;
+  }
+
+  async function saveProduct() {
+    const name = document.getElementById('f-name').value.trim();
+    const priceRaw = document.getElementById('f-price').value;
+    const price = Number(priceRaw);
+    const category = document.getElementById('f-category').value;
+    const description = document.getElementById('f-description').value.trim();
+    const product_info = document.getElementById('f-product-info').value.trim();
+    const file = document.getElementById('f-image').files[0];
+    const file2 = document.getElementById('f-image-2').files[0];
+    const file3 = document.getElementById('f-image-3').files[0];
+    const file4 = document.getElementById('f-image-4').files[0];
+
+    if (!name) { showStatus('Please enter a product name.', false); return; }
+    if (name.length > 150) { showStatus('Product name is too long.', false); return; }
+    if (!priceRaw || !Number.isFinite(price) || price <= 0) { showStatus('Please enter a valid price.', false); return; }
+    if (!ALLOWED_CATEGORIES.includes(category)) { showStatus('Please choose a valid category.', false); return; }
+
+    const btn = document.getElementById('save-btn');
+    btn.disabled = true; btn.textContent = 'Saving…';
+
+    try {
+      validateFile(file); validateFile(file2); validateFile(file3); validateFile(file4);
+
+      let image_url, image_2, image_3, image_4;
+      if (file) image_url = await uploadImage(file);
+      if (file2) image_2 = await uploadImage(file2);
+      if (file3) image_3 = await uploadImage(file3);
+      if (file4) image_4 = await uploadImage(file4);
+
+      if (editingId) {
+        const update = { name, price, category, description, product_info };
+        if (image_url) update.image_url = image_url;
+        if (image_2) update.image_2 = image_2;
+        if (image_3) update.image_3 = image_3;
+        if (image_4) update.image_4 = image_4;
+        const { error } = await sb.from('products').update(update).eq('id', editingId);
+        if (error) throw error;
+        showStatus('Product updated.');
+      } else {
+        if (!image_url) { showStatus('Please choose a main photo for a new product.', false); btn.disabled = false; btn.textContent = 'Save product'; return; }
+        const { error } = await sb.from('products').insert({
+          name, price, category, description, product_info,
+          image_url, image_2, image_3, image_4
+        });
+        if (error) throw error;
+        showStatus('Product added.');
+      }
+      resetForm();
+      loadList();
+    } catch (e) {
+      showStatus('Something went wrong: ' + e.message, false);
+    } finally {
+      btn.disabled = false; btn.textContent = editingId ? 'Save changes' : 'Save product';
+    }
+  }
+
+  async function deleteProduct(id) {
+    if (!confirm('Delete this product? This cannot be undone.')) return;
+    const { error } = await sb.from('products').delete().eq('id', id);
+    if (error) { showStatus('Could not delete: ' + error.message, false); return; }
+    showStatus('Product deleted.');
+    loadList();
+  }
+</script>
+</body>
+</html>

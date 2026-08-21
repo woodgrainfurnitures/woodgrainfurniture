@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — WoodGrains Furniture</title>
+  <meta name="description" content="Browse our complete furniture collection. Filter by category, material, price and colour to find the perfect piece for your space.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile-fixes.css">
+</head>
+<body data-page="shop">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-logo">W&amp;G</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="custom-build.html">Custom Build</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <div class="nav-icons">
+        <button class="nav-icon-btn search-btn" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="custom-build.html">Custom Build</a>
+    <a href="about.html">About</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+  <div class="search-overlay">
+    <div class="search-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search furniture...">
+      <button class="search-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+  </div>
+
+  <main class="shop-page">
+    <div class="container">
+      <!-- Page Header -->
+      <div class="shop-header">
+        <h1>Shop</h1>
+        <nav class="breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="breadcrumb-sep">›</span>
+          <span>Shop</span>
+        </nav>
+      </div>
+
+      <div class="shop-layout">
+
+        <!-- ══ FILTER SIDEBAR ══ -->
+        <aside class="filter-sidebar">
+
+          <!-- Categories -->
+          <div class="filter-section">
+            <p class="filter-title">Categories</p>
+            <ul class="cat-filter-list">
+              <li class="cat-filter-item active" data-cat="all">All <span class="count" id="count-all">0</span></li>
+              <li class="cat-filter-item" data-cat="living-room">Living Room <span class="count" id="count-living-room">0</span></li>
+              <li class="cat-filter-item" data-cat="bedroom">Bedroom <span class="count" id="count-bedroom">0</span></li>
+              <li class="cat-filter-item" data-cat="dining-room">Dining Room <span class="count" id="count-dining-room">0</span></li>
+              <li class="cat-filter-item" data-cat="office">Office <span class="count" id="count-office">0</span></li>
+              <li class="cat-filter-item" data-cat="storage">Storage <span class="count" id="count-storage">0</span></li>
+            </ul>
+          </div>
+
+          <!-- Price Range -->
+          <div class="filter-section">
+            <p class="filter-title">Price</p>
+            <div class="price-slider-wrap">
+              <div class="price-display">
+                <span>₹5,000</span>
+                <strong id="price-max-val">₹1,02,000</strong>
+              </div>
+              <div class="range-slider">
+                <div class="range-track" id="range-fill" style="width:100%"></div>
+                <input type="range" id="price-range" min="5000" max="102000" value="102000" step="500">
+              </div>
+            </div>
+          </div>
+
+        </aside>
+
+        <!-- ══ PRODUCTS AREA ══ -->
+        <div class="products-area">
+          <div class="products-toolbar">
+            <p class="products-count" id="products-count">Loading products...</p>
+            <select class="sort-select" id="sort-select" aria-label="Sort products">
+              <option value="newest">Sort: Newest</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+          </div>
+
+          <div class="products-grid" id="products-grid">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn" style="gap:4px">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo">WoodGrains Furniture</a>
+          <p>Modern designs. Quality craftsmanship. Made for spaces that inspire every day.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="shop.html">All Products</a></li>
+            <li><a href="shop.html?cat=living-room">Living Room</a></li>
+            <li><a href="shop.html?cat=bedroom">Bedroom</a></li>
+            <li><a href="shop.html?cat=dining-room">Dining Room</a></li>
+            <li><a href="shop.html?cat=office">Office</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="custom-build.html">Custom Build</a></li>
+          </ul>
+        </div>
+        
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 WoodGrains Furniture. All rights reserved.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.1" stroke-width="3"/></svg></a>
+          <a href="#" class="social-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/supabase-config.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

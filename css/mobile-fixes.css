@@ -1,0 +1,46 @@
+/* Wood & Grains — mobile refinements */
+@media (max-width: 700px) {
+  .navbar .container { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .nav-logo { flex:0 0 auto; }
+  .nav-icons { margin-left:auto; justify-content:flex-end; gap:4px; }
+  .nav-icons .nav-icon-btn { width:36px; height:36px; }
+  .nav-icons .nav-icon-btn svg { width:19px; height:19px; }
+  .hamburger { width:36px; height:36px; display:flex; align-items:center; justify-content:center; padding:4px; }
+  .mobile-nav { top:64px; padding:10px 18px 16px; }
+
+  footer { margin-top:56px; }
+  footer .footer-grid { grid-template-columns:1fr !important; gap:0 !important; }
+  footer .footer-brand { padding-bottom:18px; }
+  footer .footer-brand p { margin-top:8px; font-size:12px; line-height:1.55; max-width:320px; }
+  footer .footer-col { border-top:1px solid var(--border-lt); padding:14px 0; }
+  footer .footer-col h4 { margin-bottom:6px; font-size:13px; }
+  footer .footer-col ul { display:flex; flex-wrap:wrap; gap:4px 16px; }
+  footer .footer-col li { font-size:12px; }
+  footer .footer-newsletter { padding-bottom:16px; }
+  footer .footer-newsletter p { font-size:12px; margin-bottom:8px; }
+  footer .newsletter-form { display:flex; gap:6px; }
+  footer .newsletter-form input { min-width:0; height:38px; }
+  footer .newsletter-form .btn { height:38px; padding:8px 12px; }
+  footer .footer-bottom { padding:16px 0 20px; gap:10px; }
+  footer .footer-bottom p { font-size:11px; }
+  footer .footer-socials { gap:10px; }
+
+  .cart-page { padding-bottom:48px; }
+  .cart-page .cart-layout { grid-template-columns:1fr !important; gap:28px; }
+  .cart-page .order-summary { position:static !important; }
+  .cart-page .cart-item { grid-template-columns:72px 1fr !important; gap:10px; padding:14px 0; }
+  .cart-page .cart-item-img { width:72px !important; height:72px !important; }
+  .cart-page .cart-item-right { grid-column:2; display:flex; align-items:center; justify-content:space-between; }
+  .cart-page .cart-item-name { font-size:13px; }
+  .cart-page .cart-item-meta { font-size:11px; }
+  .cart-page .cart-item-price { font-size:13px; }
+  .cart-related-section { margin-top:48px !important; padding-top:32px !important; }
+  .payment-pill { padding:4px 8px; background:var(--bg-alt); border-radius:4px; font-size:10px; font-weight:600; color:var(--text-sec); }
+}
+@media (max-width: 420px) {
+  .nav-icons { gap:2px; }
+  .nav-icons .nav-icon-btn { width:34px; height:34px; }
+  .hamburger { width:34px; height:34px; }
+  footer .footer-col ul { display:block; }
+  footer .footer-col li { display:inline; margin-right:14px; }
+}

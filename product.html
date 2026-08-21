@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Product — WoodGrains Furniture</title>
+
+  <meta
+    name="description"
+    content="View product details — WoodGrains Furniture."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile-fixes.css">
+</head>
+
+<body data-page="product">
+
+  <!-- =========================================================
+       NAVBAR
+       ========================================================= -->
+
+  <nav class="navbar">
+    <div class="container">
+
+      <a href="index.html" class="nav-logo">
+        W&amp;G
+      </a>
+
+      <ul class="nav-links">
+        <li>
+          <a href="index.html">Home</a>
+        </li>
+
+        <li>
+          <a href="shop.html">Shop</a>
+        </li>
+
+        <li>
+          <a href="custom-build.html">Custom Build</a>
+        </li>
+
+        <li>
+          <a href="about.html">About</a>
+        </li>
+
+        <li>
+          <a href="index.html#contact">Contact</a>
+        </li>
+      </ul>
+
+      <div class="nav-icons">
+
+        <button
+          class="nav-icon-btn search-btn"
+          aria-label="Search"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <circle cx="11" cy="11" r="8"/>
+            <line
+              x1="21"
+              y1="21"
+              x2="16.65"
+              y2="16.65"
+            />
+          </svg>
+        </button>
+
+        <button
+          class="hamburger"
+          aria-label="Menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =========================================================
+       MOBILE NAV
+       ========================================================= -->
+
+  <div class="mobile-nav">
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="shop.html">
+      Shop
+    </a>
+
+    <a href="custom-build.html">
+      Custom Build
+    </a>
+
+    <a href="about.html">
+      About
+    </a>
+
+    <a href="index.html#contact">
+      Contact
+    </a>
+
+  </div>
+
+
+  <!-- =========================================================
+       SEARCH OVERLAY
+       ========================================================= -->
+
+  <div class="search-overlay">
+
+    <div class="search-box">
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <circle cx="11" cy="11" r="8"/>
+        <line
+          x1="21"
+          y1="21"
+          x2="16.65"
+          y2="16.65"
+        />
+      </svg>
+
+      <input
+        type="text"
+        placeholder="Search furniture..."
+      >
+
+      <button class="search-close">
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line
+            x1="18"
+            y1="6"
+            x2="6"
+            y2="18"
+          />
+
+          <line
+            x1="6"
+            y1="6"
+            x2="18"
+            y2="18"
+          />
+        </svg>
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       PRODUCT PAGE
+       ========================================================= -->
+
+  <main class="product-detail-page">
+
+    <div class="container">
+
+
+      <!-- =====================================================
+           BREADCRUMB
+           ===================================================== -->
+
+      <nav class="breadcrumb">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <span class="breadcrumb-sep">
+          ›
+        </span>
+
+        <a href="shop.html">
+          Shop
+        </a>
+
+        <span class="breadcrumb-sep">
+          ›
+        </span>
+
+        <!-- Filled by JavaScript -->
+        <span></span>
+
+      </nav>
+
+
+      <!-- =====================================================
+           PRODUCT GRID
+           ===================================================== -->
+
+      <div class="product-detail-grid">
+
+
+        <!-- ===================================================
+             PRODUCT GALLERY
+             =================================================== -->
+
+        <div class="product-gallery">
+
+          <div class="main-image-wrap">
+
+            <!--
+              IMPORTANT:
+              No placeholder image here.
+              JavaScript loads the real Supabase image.
+            -->
+
+<img 
+  id="main-product-img" 
+  src="" 
+  alt="Product image" 
+  onerror="
+    this.parentElement.style.background='var(--bg-alt)'; 
+    this.style.display='none'; 
+  "
+>
+          </div>
+
+
+          <!--
+            Additional product images are inserted here
+            by JavaScript.
+          -->
+
+          <div
+            class="thumb-list"
+            id="thumb-list"
+          >
+            <!-- Rendered by JS -->
+          </div>
+
+        </div>
+
+
+        <!-- ===================================================
+             PRODUCT INFORMATION
+             =================================================== -->
+
+        <div class="product-info-detail">
+
+
+          <!-- Product name + price -->
+
+          <div>
+
+            <!--
+              No hardcoded product name.
+              JavaScript loads it from Supabase.
+            -->
+
+            <h1 class="product-detail-name"></h1>
+
+
+            <!--
+              No hardcoded price.
+              JavaScript loads it from Supabase.
+            -->
+
+            <p class="product-detail-price"></p>
+
+          </div>
+
+
+          <!--
+            No hardcoded description.
+            JavaScript loads it from Supabase.
+          -->
+
+          <p class="product-detail-desc"></p>
+
+
+          <!-- =================================================
+               PRODUCT INFORMATION
+               ================================================= -->
+
+          <div
+            class="product-extra-info"
+            id="product-extra-info"
+            style="display:none"
+          >
+
+            <p class="product-extra-info-title">
+              Product Information
+            </p>
+
+            <p
+              class="product-extra-info-body"
+              id="product-extra-info-body"
+            ></p>
+
+          </div>
+
+
+          <!-- =================================================
+               ACTIONS
+               ================================================= -->
+
+          <div class="product-actions">
+
+            <button
+              class="btn btn-primary btn-lg btn-full"
+              id="enquire-btn"
+            >
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                style="width:18px;height:18px"
+              >
+
+                <path
+                  d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.9 11.9L4 20l4.2-1.1a7.9 7.9 0 0 0 3.85 1h0a7.94 7.94 0 0 0 7.94-7.94 7.9 7.9 0 0 0-2.4-5.64zM12.05 18.4a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.43-.16-.25a6.6 6.6 0 1 1 12.24-3.5 6.6 6.6 0 0 1-6.65 6.58zm3.62-4.94c-.2-.1-1.17-.58-1.35-.64-.18-.07-.31-.1-.44.1-.13.2-.5.64-.62.77-.11.13-.23.15-.42.05-.2-.1-.83-.3-1.58-.97a5.9 5.9 0 0 1-1.1-1.36c-.11-.2 0-.3.09-.4.09-.1.2-.23.3-.35.1-.11.13-.2.2-.33.06-.13.03-.25-.02-.35-.05-.1-.44-1.06-.6-1.45-.16-.38-.32-.33-.44-.33h-.37c-.13 0-.34.05-.52.25-.18.2-.68.66-.68 1.62s.7 1.88.79 2.01c.1.13 1.37 2.1 3.33 2.94.46.2.83.32 1.11.41.47.15.9.13 1.24.08.38-.06 1.17-.48 1.33-.94.16-.46.16-.86.11-.94-.05-.09-.18-.14-.38-.24z"
+                />
+
+              </svg>
+
+              Enquire on WhatsApp
+
+            </button>
+
+          </div>
+
+
+          <!-- =================================================
+               DELIVERY INFORMATION
+               ================================================= -->
+
+          <div class="delivery-info">
+
+
+            <!-- Delivery -->
+
+            <div class="delivery-item">
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <rect
+                  x="1"
+                  y="3"
+                  width="15"
+                  height="13"
+                />
+
+                <polygon
+                  points="16 8 20 8 23 11 23 16 16 16 16 8"
+                />
+
+                <circle
+                  cx="5.5"
+                  cy="18.5"
+                  r="2.5"
+                />
+
+                <circle
+                  cx="18.5"
+                  cy="18.5"
+                  r="2.5"
+                />
+              </svg>
+
+              <div>
+
+                <strong>
+                  Delivered in 7–10 days
+                </strong>
+
+                <p>
+                  To your doorstep
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <!-- Free Delivery -->
+
+            <div class="delivery-item">
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+
+                <path
+                  d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                />
+
+              </svg>
+
+              <div>
+
+                <strong>
+                  Free Delivery
+                </strong>
+
+                <p>
+                  On orders above ₹25,000
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <!-- Easy Returns -->
+
+            <div class="delivery-item">
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+
+                <polyline
+                  points="23 4 23 10 17 10"
+                />
+
+                <path
+                  d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"
+                />
+
+              </svg>
+
+              <div>
+
+                <strong>
+                  Easy Returns
+                </strong>
+
+                <p>
+                  Within 7 days
+                </p>
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =====================================================
+           YOU MAY ALSO LIKE
+           ===================================================== -->
+
+      <section class="related-section">
+
+        <div class="section-header">
+
+          <h2 class="section-title">
+            You may also like
+          </h2>
+
+          <a
+            href="shop.html"
+            class="view-all"
+          >
+            View all
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+
+              <line
+                x1="5"
+                y1="12"
+                x2="19"
+                y2="12"
+              />
+
+              <polyline
+                points="12 5 19 12 12 19"
+              />
+
+            </svg>
+
+          </a>
+
+        </div>
+
+
+        <!-- Related products loaded by JS -->
+
+        <div
+          class="related-grid"
+          id="related-grid"
+        >
+          <!-- Rendered by JS -->
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+
+        <!-- Brand -->
+
+        <div class="footer-brand">
+
+          <a
+            href="index.html"
+            class="nav-logo"
+          >
+            WoodGrains Furniture
+          </a>
+
+          <p>
+            Modern designs. Quality craftsmanship.
+            Made for spaces that inspire every day.
+          </p>
+
+        </div>
+
+
+        <!-- Shop -->
+
+        <div class="footer-col">
+
+          <h4>
+            Shop
+          </h4>
+
+          <ul>
+
+            <li>
+              <a href="shop.html">
+                All Products
+              </a>
+            </li>
+
+            <li>
+              <a href="shop.html?cat=living-room">
+                Living Room
+              </a>
+            </li>
+
+            <li>
+              <a href="shop.html?cat=bedroom">
+                Bedroom
+              </a>
+            </li>
+
+            <li>
+              <a href="shop.html?cat=office">
+                Office
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <!-- Company -->
+
+        <div class="footer-col">
+
+          <h4>
+            Company
+          </h4>
+
+          <ul>
+
+            <li>
+              <a href="about.html">
+                About Us
+              </a>
+            </li>
+
+            <li>
+              <a href="custom-build.html">
+                Custom Build
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+
+      <!-- Footer Bottom -->
+
+      <div class="footer-bottom">
+
+        <p>
+          © 2026 WoodGrains Furniture.
+          All rights reserved.
+        </p>
+
+        <div class="footer-socials">
+
+          <a
+            href="#"
+            class="social-link"
+          >
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+
+              <rect
+                x="2"
+                y="2"
+                width="20"
+                height="20"
+                rx="5"
+                ry="5"
+              />
+
+              <circle
+                cx="12"
+                cy="12"
+                r="4"
+              />
+
+              <circle
+                cx="17.5"
+                cy="6.5"
+                r="0.1"
+                stroke-width="3"
+              />
+
+            </svg>
+
+          </a>
+
+
+          <a
+            href="#"
+            class="social-link"
+          >
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+
+              <path
+                d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+              />
+
+            </svg>
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================================================
+       JAVASCRIPT
+       ========================================================= -->
+
+  <script src="js/supabase-config.js"></script>
+  <script src="js/script.js"></script>
+
+</body>
+</html>
